@@ -4,6 +4,9 @@
              x:Class="App.Clinic.Views.PatientManagement"
              Title="PatientManagement">
     <VerticalStackLayout>
+        <ListView
+            ItemsSource="{Binding Patients}"
+            ></ListView>
         <Button Text="Cancel" Clicked="CancelClicked" />
     </VerticalStackLayout>
 </ContentPage>
