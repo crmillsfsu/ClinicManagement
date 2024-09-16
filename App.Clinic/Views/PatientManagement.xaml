@@ -8,8 +8,10 @@
     <VerticalStackLayout>
         <ListView
             ItemsSource="{Binding Patients}"
+            SelectedItem="{Binding SelectedPatient}"
             ></ListView>
         <Button Text="Add" Clicked="AddClicked"/>
+        <Button Text="Delete" Clicked="DeleteClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked" />
     </VerticalStackLayout>
 </ContentPage>
