@@ -2,11 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App.Clinic.Views.PatientManagement"
-             Title="PatientManagement">
+             Title="PatientManagement"
+             NavigatedTo="PatientManagement_NavigatedTo"
+             >
     <VerticalStackLayout>
         <ListView
             ItemsSource="{Binding Patients}"
             ></ListView>
+        <Button Text="Add" Clicked="AddClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked" />
     </VerticalStackLayout>
 </ContentPage>
