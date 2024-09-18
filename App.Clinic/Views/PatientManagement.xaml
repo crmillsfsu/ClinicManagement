@@ -11,6 +11,7 @@
             SelectedItem="{Binding SelectedPatient}"
             ></ListView>
         <Button Text="Add" Clicked="AddClicked"/>
+        <Button Text="Edit" Clicked="EditClicked"/>
         <Button Text="Delete" Clicked="DeleteClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked" />
     </VerticalStackLayout>

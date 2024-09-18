@@ -42,7 +42,7 @@ namespace App.Clinic.ViewModels
 
         public void Refresh()
         {
-            NotifyPropertyChanged("Patients");
+            NotifyPropertyChanged(nameof(Patients));
         }
     }
 }
