@@ -22,7 +22,14 @@ public partial class PatientManagement : ContentPage, INotifyPropertyChanged
 
     private void AddClicked(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//PatientDetails");
+        Shell.Current.GoToAsync("//PatientDetails?patientId=0");
+    }
+
+    private void EditClicked(object sender, EventArgs e)
+    {
+        var selectedPatientId = (BindingContext as PatientManagementViewModel)?
+            .SelectedPatient?.Id ?? 0;
+        Shell.Current.GoToAsync($"//PatientDetails?patientId={selectedPatientId}");
     }
 
     private void DeleteClicked(object sender, EventArgs e)

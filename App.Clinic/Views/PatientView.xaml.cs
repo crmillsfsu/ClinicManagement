@@ -1,9 +1,11 @@
+using Java.Util.Functions;
 using Library.Clinic.Models;
 using Library.Clinic.Services;
 using System.ComponentModel;
 
 namespace App.Clinic.Views;
 
+[QueryProperty(nameof(PatientId), "patientId")]
 public partial class PatientView : ContentPage
 {
 	public PatientView()
@@ -11,6 +13,7 @@ public partial class PatientView : ContentPage
 		InitializeComponent();
 		
 	}
+    public int PatientId { get; set; }
 
     private void CancelClicked(object sender, EventArgs e)
     {
@@ -24,7 +27,7 @@ public partial class PatientView : ContentPage
         {
             PatientServiceProxy
             .Current
-            .AddPatient(patientToAdd);
+            .AddOrUpdatePatient(patientToAdd);
         }
 
         Shell.Current.GoToAsync("//Patients");
@@ -32,6 +35,15 @@ public partial class PatientView : ContentPage
 
     private void PatientView_NavigatedTo(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new Patient();
+        //TODO: this really needs to be in a view model
+        if(PatientId > 0)
+        {
+            BindingContext = PatientServiceProxy.Current
+                .Patients.FirstOrDefault(p => p.Id == PatientId);
+        } else
+        {
+            BindingContext = new Patient();
+        }
+        
     }
 }

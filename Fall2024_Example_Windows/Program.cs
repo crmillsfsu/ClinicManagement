@@ -25,7 +25,7 @@ namespace MyApp
                         case 'A':
                             var name = Console.ReadLine();
                             var newPatient = new Patient { Name = name ?? string.Empty };
-                            PatientServiceProxy.Current.AddPatient(newPatient);
+                            PatientServiceProxy.Current.AddOrUpdatePatient(newPatient);
                             break;
                         case 'd':
                         case 'D':
