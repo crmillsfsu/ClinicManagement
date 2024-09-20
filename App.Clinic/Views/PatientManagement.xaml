@@ -9,7 +9,15 @@
         <ListView
             ItemsSource="{Binding Patients}"
             SelectedItem="{Binding SelectedPatient}"
-            ></ListView>
+            >
+            <!--<ListView.ItemTemplate>
+                --><!--<DataTemplate>
+                    <ViewCell>
+                        
+                    </ViewCell>
+                </DataTemplate>--><!--
+            </ListView.ItemTemplate>-->
+        </ListView>
         <Button Text="Add" Clicked="AddClicked"/>
         <Button Text="Edit" Clicked="EditClicked"/>
         <Button Text="Delete" Clicked="DeleteClicked"/>
