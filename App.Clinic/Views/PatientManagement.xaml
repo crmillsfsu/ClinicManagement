@@ -10,13 +10,24 @@
             ItemsSource="{Binding Patients}"
             SelectedItem="{Binding SelectedPatient}"
             >
-            <!--<ListView.ItemTemplate>
-                --><!--<DataTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
                     <ViewCell>
-                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="10*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding Id}"/>
+                            <Label Grid.Column="1" Text="{Binding Name}"/>
+                            <Button Grid.Column="2" Text="Edit"/>
+                            <Button Grid.Column="3" Text="Delete"/>
+                        </Grid>
                     </ViewCell>
-                </DataTemplate>--><!--
-            </ListView.ItemTemplate>-->
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Text="Add" Clicked="AddClicked"/>
         <Button Text="Edit" Clicked="EditClicked"/>
