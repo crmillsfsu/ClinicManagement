@@ -1,4 +1,5 @@
 ﻿using Library.Clinic.Models;
+using Library.Clinic.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,48 +10,60 @@ namespace App.Clinic.ViewModels
 {
     public class PatientViewModel
     {
-        private Patient? model { get; set; }
+        public Patient? Model { get; set; }
 
         public int Id
         {
             get
             {
-                if(model == null)
+                if(Model == null)
                 {
                     return -1;
                 }
 
-                return model.Id;
+                return Model.Id;
             }
 
             set
             {
-                if(model != null && model.Id != value) {
-                    model.Id = value;
+                if(Model != null && Model.Id != value) {
+                    Model.Id = value;
                 }
             }
         }
 
         public string Name
         {
-            get => model?.Name ?? string.Empty;
+            get => Model?.Name ?? string.Empty;
             set
             {
-                if(model != null)
+                if(Model != null)
                 {
-                    model.Name = value;
+                    Model.Name = value;
                 }
             }
         }
 
         public PatientViewModel()
         {
-            model = new Patient();
+            Model = new Patient();
         }
 
         public PatientViewModel(Patient? _model)
         {
-            model = _model;
+            Model = _model;
+        }
+
+        public void ExecuteAdd()
+        {
+            if (Model != null)
+            {
+                PatientServiceProxy
+                .Current
+                .AddOrUpdatePatient(Model);
+            }
+
+            Shell.Current.GoToAsync("//Patients");
         }
     }
 }
