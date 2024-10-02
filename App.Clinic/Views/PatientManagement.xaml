@@ -23,7 +23,7 @@
                             <Label FontAttributes="Bold" Grid.Column="0" Text="{Binding Id}"/>
                             <Label Grid.Column="1" Text="{Binding Name}"/>
                             <Button Grid.Column="2" Text="Edit"/>
-                            <Button Grid.Column="3" Text="Delete"/>
+                            <Button Grid.Column="3" Text="Delete" Command="{Binding DeleteCommand}" Clicked="RefreshClicked"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
