@@ -32,6 +32,7 @@ namespace App.Clinic.ViewModels
                     .Patients
                     .Where(p=>p != null)
                     .Where(p => p.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
+                    .Take(100)
                     .Select(p => new PatientViewModel(p))
                     );
 
