@@ -20,5 +20,9 @@
         Title="Patient Details"
         ContentTemplate="{DataTemplate views:PatientView}"
         Route="PatientDetails" />
+    <ShellContent
+    Title="Manage Appointments"
+    ContentTemplate="{DataTemplate views:AppointmentManagementView}"
+    Route="Appointments" />
 
 </Shell>
