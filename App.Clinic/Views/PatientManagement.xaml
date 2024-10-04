@@ -6,6 +6,14 @@
              NavigatedTo="PatientManagement_NavigatedTo"
              >
     <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Entry Grid.Column="0" Text="{Binding Query}"/>
+            <Button Grid.Column="1" Text="Search" Clicked="RefreshClicked"/>
+        </Grid>
         <ListView
             ItemsSource="{Binding Patients}"
             SelectedItem="{Binding SelectedPatient}"
