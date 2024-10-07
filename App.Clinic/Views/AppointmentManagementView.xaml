@@ -4,7 +4,9 @@
              x:Class="App.Clinic.Views.AppointmentManagementView"
              Title="AppointmentManagementView">
     <VerticalStackLayout>
-        <ListView>
+        <ListView
+            ItemsSource="{Binding Appointments}"
+            >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -14,14 +16,47 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <Label
-                                Text="Appointment Date:"/>
+                            <Grid Grid.Column="0">
+                                <!-- Patient Display-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="Patient:"/>
+                                <Label Grid.Column="1"
+                                    Text="{Binding PatientName}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <!-- Start Time Display-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="Appointment Start:"/>
+                                <Label Grid.Column="1"
+                                    Text="APPOINTMENT START"/>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <!-- End Time Display-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="Appointment End:"/>
+                                <Label Grid.Column="1"
+                                    Text="APPOINTMENT END"/>
+                            </Grid>
+                            
                             
                         </Grid>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Schedule Appointment" Clicked="AddClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>

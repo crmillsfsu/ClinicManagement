@@ -15,6 +15,6 @@ namespace Library.Clinic.Models
         public DateTime EndTime { get; set; }
 
         public int PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public Patient? Patient { get; set; }
     }
 }
