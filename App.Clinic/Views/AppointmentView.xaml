@@ -6,8 +6,10 @@
     <VerticalStackLayout>
         <Label Text="Patient"/>
         <Picker
+            ItemsSource="{Binding Patients}"
+            SelectedItem="{Binding SelectedPatient}"
             />
-
+        <Button Text="Ok" Clicked="OkClicked"/>
         <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
 </ContentPage>

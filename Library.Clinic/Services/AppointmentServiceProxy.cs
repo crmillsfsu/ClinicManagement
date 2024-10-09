@@ -10,7 +10,17 @@ namespace Library.Clinic.Services
     public class AppointmentServiceProxy
     {
         private static object _lock = new object();
-
+        private int lastKey
+        {
+            get
+            {
+                if (Appointments.Any())
+                {
+                    return Appointments.Select(x => x.Id).Max();
+                }
+                return 0;
+            }
+        }
         public List<Appointment> Appointments { get; private set; }
 
         private static AppointmentServiceProxy _instance;
@@ -38,6 +48,22 @@ namespace Library.Clinic.Services
                 , EndTime = new DateTime(2024, 10, 9)
                 , PatientId = 1}
             };
+        }
+
+        public void AddOrUpdate(Appointment a)
+        {
+            var isAdd = false;
+            if(a.Id <= 0)
+            {
+                a.Id = lastKey + 1;
+                isAdd = true;
+            }
+
+            if(isAdd)
+            {
+                Appointments.Add(a);
+            }
+
         }
     }
 }
