@@ -20,4 +20,9 @@ public partial class AppointmentView : ContentPage
         (BindingContext as AppointmentViewModel)?.AddOrUpdate();
         Shell.Current.GoToAsync("//Appointments");
     }
+
+    private void TimePicker_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        (BindingContext as AppointmentViewModel)?.RefreshTime();
+    }
 }

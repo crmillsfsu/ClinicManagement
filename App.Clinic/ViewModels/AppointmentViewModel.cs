@@ -56,6 +56,44 @@ namespace App.Clinic.ViewModels
             }
         }
 
+        public DateTime MinStartDate
+        {
+            get
+            {
+                return DateTime.Today;
+            }
+        }
+
+        public void RefreshTime()
+        {
+            if (Model != null)
+            {
+                if (Model.StartTime != null)
+                {
+                    Model.StartTime = StartDate;
+                    Model.StartTime = Model.StartTime.Value.AddHours(StartTime.Hours);
+                }
+            }
+        }
+        
+        public DateTime StartDate { 
+            
+            get
+            {
+                return Model?.StartTime?.Date ?? DateTime.Today;
+            }
+
+            set
+            {
+                if (Model != null)
+                {
+                    Model.StartTime = value;
+                    RefreshTime();
+                }
+            }
+        }
+        public TimeSpan StartTime { get; set; }
+
         public AppointmentViewModel() {
             Model = new Appointment();
         }
