@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App.Clinic.Views.AppointmentManagementView"
+             Title="AppointmentManagementView">
+    <VerticalStackLayout>
+        <ListView
+            ItemsSource="{Binding Appointments}"
+            >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <!-- Patient Display-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="Patient:"/>
+                                <Label Grid.Column="1"
+                                    Text="{Binding PatientName}"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <!-- Start Time Display-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="Appointment Start:"/>
+                                <Label Grid.Column="1"
+                                    Text="APPOINTMENT START"/>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <!-- End Time Display-->
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                    Text="Appointment End:"/>
+                                <Label Grid.Column="1"
+                                    Text="APPOINTMENT END"/>
+                            </Grid>
+                            
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Schedule Appointment" Clicked="AddClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
+    </VerticalStackLayout>
+</ContentPage>
