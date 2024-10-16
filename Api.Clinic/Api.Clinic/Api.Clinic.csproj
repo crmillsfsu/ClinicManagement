@@ -10,4 +10,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Library.Clinic">
+      <HintPath>..\..\Library.Clinic\bin\Debug\net8.0\Library.Clinic.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
