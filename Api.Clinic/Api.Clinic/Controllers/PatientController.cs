@@ -21,10 +21,22 @@ namespace Api.Clinic.Controllers
             return new PatientEC().Patients;
         }
 
-        [HttpGet("GetById")]
-        public IEnumerable<Patient> GetById()
+        [HttpGet("{id}")]
+        public Patient? GetById(int id)
         {
-            return new PatientEC().Patients;
+            return new PatientEC().GetById(id);
+        }
+
+        [HttpDelete("{id}")]
+        public Patient? Delete(int id)
+        {
+            return new PatientEC().Delete(id);
+        }
+
+        [HttpPost]
+        public Patient? AddOrUpdate([FromBody] Patient? patient)
+        {
+            return new PatientEC().AddOrUpdate(patient);
         }
     }
 }
