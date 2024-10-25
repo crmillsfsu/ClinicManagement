@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Clinic.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,6 @@ namespace Library.Clinic.Models
         public DateTime? EndTime { get; set; }
 
         public int PatientId { get; set; }
-        public Patient? Patient { get; set; }
+        public PatientDTO? Patient { get; set; }
     }
 }

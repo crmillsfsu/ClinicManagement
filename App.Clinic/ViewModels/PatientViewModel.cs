@@ -1,4 +1,5 @@
-﻿using Library.Clinic.Models;
+﻿using Library.Clinic.DTO;
+using Library.Clinic.Models;
 using Library.Clinic.Services;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace App.Clinic.ViewModels
 {
     public class PatientViewModel
     {
-        public Patient? Model { get; set; }
+        public PatientDTO? Model { get; set; }
         public ICommand? DeleteCommand { get; set; }
         public ICommand? EditCommand { get; set; }
         public int Id
@@ -73,11 +74,11 @@ namespace App.Clinic.ViewModels
 
         public PatientViewModel()
         {
-            Model = new Patient();
+            Model = new PatientDTO();
             SetupCommands();
         }
 
-        public PatientViewModel(Patient? _model)
+        public PatientViewModel(PatientDTO? _model)
         {
             Model = _model;
             SetupCommands();

@@ -1,4 +1,7 @@
-﻿using Library.Clinic.Models;
+﻿using Library.Clinic.DTO;
+using Library.Clinic.Models;
+using Newtonsoft.Json;
+using PP.Library.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +33,9 @@ namespace Library.Clinic.Services
         {
             instance = null;
 
+            var patientsData = new WebRequestHandler().Get("/Patient").Result;
 
-            Patients = new List<Patient>
-            {  
-                new Patient{Id = 1, Name = "John Doe"}
-                , new Patient{Id = 2, Name = "Jane Doe"}
-            };
+            Patients = JsonConvert.DeserializeObject<List<PatientDTO>>(patientsData) ?? new List<PatientDTO>();
         }
         public int LastKey
         {
@@ -49,8 +49,8 @@ namespace Library.Clinic.Services
             }
         }
 
-        private List<Patient> patients; 
-        public List<Patient> Patients { 
+        private List<PatientDTO> patients; 
+        public List<PatientDTO> Patients { 
             get {
                 return patients;
             }
@@ -64,7 +64,7 @@ namespace Library.Clinic.Services
             }
         }
 
-        public void AddOrUpdatePatient(Patient patient)
+        public void AddOrUpdatePatient(PatientDTO patient)
         {
             bool isAdd = false;
             if (patient.Id <= 0)
@@ -80,12 +80,14 @@ namespace Library.Clinic.Services
 
         }
 
-        public void DeletePatient(int id) {
+        public async void DeletePatient(int id) {
             var patientToRemove = Patients.FirstOrDefault(p => p.Id == id);
 
             if (patientToRemove != null)
             {
                 Patients.Remove(patientToRemove);
+
+                await new WebRequestHandler().Delete($"/Patient/{id}");
             }
         }
     }
