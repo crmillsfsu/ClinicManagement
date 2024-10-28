@@ -84,16 +84,16 @@ namespace App.Clinic.ViewModels
             SetupCommands();
         }
 
-        public void ExecuteAdd()
+        public async void ExecuteAdd()
         {
             if (Model != null)
             {
-                PatientServiceProxy
+                await PatientServiceProxy
                 .Current
                 .AddOrUpdatePatient(Model);
             }
 
-            Shell.Current.GoToAsync("//Patients");
+            await Shell.Current.GoToAsync("//Patients");
         }
     }
 }
