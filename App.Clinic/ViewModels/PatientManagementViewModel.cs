@@ -32,7 +32,6 @@ namespace App.Clinic.ViewModels
                     .Patients
                     .Where(p=>p != null)
                     .Where(p => p.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))
-                    .Take(100)
                     .Select(p => new PatientViewModel(p))
                     );
 
@@ -54,6 +53,15 @@ namespace App.Clinic.ViewModels
         public void Refresh()
         {
             NotifyPropertyChanged(nameof(Patients));
+        }
+
+        public async void Search()
+        {
+            if (Query != null)
+            {
+                await PatientServiceProxy.Current.Search(Query);
+            }
+            Refresh();
         }
     }
 }

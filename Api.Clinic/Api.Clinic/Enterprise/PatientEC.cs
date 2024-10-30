@@ -12,8 +12,16 @@ namespace Api.Clinic.Enterprise
         {
             get
             {
-                return FakeDatabase.Patients.Select(p => new PatientDTO(p));
+                return FakeDatabase.Patients.Take(100).Select(p => new PatientDTO(p));
             }
+        }
+
+        public IEnumerable<PatientDTO>? Search(string query)
+        {
+            return FakeDatabase.Patients
+                .Where(p => p.Name.ToUpper()
+                    .Contains(query?.ToUpper() ?? string.Empty))
+                .Select(p => new PatientDTO(p));
         }
 
         public PatientDTO? GetById(int id)

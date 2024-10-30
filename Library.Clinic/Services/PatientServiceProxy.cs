@@ -18,7 +18,7 @@ namespace Library.Clinic.Services
         {
             get
             {
-                lock(_lock)
+                lock (_lock)
                 {
                     if (instance == null)
                     {
@@ -42,7 +42,7 @@ namespace Library.Clinic.Services
         {
             get
             {
-                if(Patients.Any())
+                if (Patients.Any())
                 {
                     return Patients.Select(x => x.Id).Max();
                 }
@@ -50,8 +50,8 @@ namespace Library.Clinic.Services
             }
         }
 
-        private List<PatientDTO> patients; 
-        public List<PatientDTO> Patients { 
+        private List<PatientDTO> patients;
+        public List<PatientDTO> Patients {
             get {
                 return patients;
             }
@@ -63,6 +63,17 @@ namespace Library.Clinic.Services
                     patients = value;
                 }
             }
+        }
+
+        public async Task<List<PatientDTO>> Search(string query) {
+
+            var patientsPayload = await new WebRequestHandler()
+                .Post("/Patient/Search", new Query(query));
+
+            Patients = JsonConvert.DeserializeObject<List<PatientDTO>>(patientsPayload)
+                ?? new List<PatientDTO>();
+
+            return Patients;
         }
 
         public async Task<PatientDTO?> AddOrUpdatePatient(PatientDTO patient)
