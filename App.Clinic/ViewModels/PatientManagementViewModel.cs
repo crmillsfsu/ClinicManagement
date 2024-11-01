@@ -13,11 +13,38 @@ namespace App.Clinic.ViewModels
 {
     public class PatientManagementViewModel: INotifyPropertyChanged
     {
+        public PatientManagementViewModel() {
+            SortChoices = new List<SortChoiceEnum>
+            {
+               SortChoiceEnum.NameAscending
+              , SortChoiceEnum.NameDescending
+            };
+
+            SortChoice = SortChoiceEnum.NameAscending;
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public List<SortChoiceEnum> SortChoices { get; set; }
+
+        private SortChoiceEnum sortChoice;
+        public SortChoiceEnum SortChoice { 
+            get
+            {
+                return sortChoice;
+            }
+            set
+            {
+                if (sortChoice != value)
+                {
+                    sortChoice = value;
+                    NotifyPropertyChanged("Patients");
+                }
+            }
         }
 
         public PatientViewModel? SelectedPatient { get; set; }
@@ -35,7 +62,15 @@ namespace App.Clinic.ViewModels
                     .Select(p => new PatientViewModel(p))
                     );
 
-                return retVal;
+                if(SortChoice == SortChoiceEnum.NameAscending)
+                {
+                    return
+                        new ObservableCollection<PatientViewModel>(retVal.OrderBy(p => p.Name));
+                } else
+                {
+                    return
+                        new ObservableCollection<PatientViewModel>(retVal.OrderByDescending(p => p.Name));
+                }
             }
         }
 

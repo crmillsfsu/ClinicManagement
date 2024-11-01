@@ -10,9 +10,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="12*"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Entry Grid.Column="0" Text="{Binding Query}"/>
             <Button Grid.Column="1" Text="Search" Clicked="SearchClicked"/>
+            <Picker Grid.Column="2" 
+                    ItemsSource="{Binding SortChoices}"
+                    SelectedItem="{Binding SortChoice}"/>
+
+
         </Grid>
         <ListView
             ItemsSource="{Binding Patients}"
