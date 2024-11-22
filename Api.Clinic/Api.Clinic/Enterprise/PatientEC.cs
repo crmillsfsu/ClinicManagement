@@ -12,6 +12,7 @@ namespace Api.Clinic.Enterprise
         {
             get
             {
+                var appointments = new AppointmentEC().Appointments;
                 return FakeDatabase.Patients.Take(100).Select(p => new PatientDTO(p));
             }
         }
