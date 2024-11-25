@@ -27,5 +27,17 @@ namespace Api.Clinic.Controllers
         {
             new AppointmentEC().Delete(id);
         }
+
+        [HttpPost("UpdateAppointment")]
+        public Appointment Update([FromBody] Appointment appointment)
+        {
+            return new AppointmentEC().Update(appointment);
+        }
+
+        [HttpPost]
+        public Appointment Create([FromBody] Appointment appointment)
+        {
+            return new AppointmentEC().Create(appointment);
+        }
     }
 }

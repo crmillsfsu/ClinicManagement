@@ -62,5 +62,65 @@ namespace Api.Clinic.Database
                 }
             }
         }
+
+        public void UpdateAppointment(Appointment app)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var str = "Appointments.[Update]";
+                using (var cmd = new SqlCommand(str, conn))
+                {
+                    /*exec Appointments.[Update] 
+@date = '2025-08-01'
+, @physicianId = 6
+, @patientId = 1003
+, @appointmentId = 1*/
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@date", app.StartTime));
+                    cmd.Parameters.Add(new SqlParameter("@physicianId", 3));
+                    cmd.Parameters.Add(new SqlParameter("@patientId", app.PatientId));
+                    cmd.Parameters.Add(new SqlParameter("@appointmentId", app.Id));
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+            }
+        }
+
+        public Appointment CreateAppointment(Appointment app)
+        {
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var str = "Appointments.[Create]";
+                using (var cmd = new SqlCommand(str, conn))
+                {
+                    /*declare @id int
+                    exec Appointments.[Create] 
+                    @patientId = 1003 
+                    , @physicianId = 6
+                    , @date = '2025-03-01'
+                    , @appointmentId = @id output
+                    select @id*/
+
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@date", app.StartTime));
+                    cmd.Parameters.Add(new SqlParameter("@physicianId", 3));
+                    cmd.Parameters.Add(new SqlParameter("@patientId", app.PatientId));
+                    var param = new SqlParameter("@appointmentId", app.Id);
+                    param.Direction = System.Data.ParameterDirection.Output;
+                    cmd.Parameters.Add(param);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    app.Id = (int)param.Value;
+                    conn.Close();
+                }
+
+                return app;
+            }
+        }
+
     }
 }
