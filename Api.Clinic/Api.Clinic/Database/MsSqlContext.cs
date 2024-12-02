@@ -9,6 +9,42 @@ namespace Api.Clinic.Database
 
         public MsSqlContext() { }
 
+        public IEnumerable<Patient> GetPatients()
+        {
+            var returnVal = new List<Patient>();
+            using (var conn = new SqlConnection(connectionString))
+            {
+                var str = "select * from Patient";
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = System.Data.CommandType.Text;
+                    cmd.CommandText = str;
+
+                    try
+                    {
+                        conn.Open();
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            var newApp = new Patient
+                            {
+                                Id = (int)reader["Id"],
+                                Name = reader["Name"].ToString()
+                            };
+
+                            returnVal.Add(newApp);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                }
+            }
+
+            return returnVal;
+        }
+
         public List<Appointment> GetAppointments()
         {
             var returnVal = new List<Appointment>();
@@ -29,7 +65,8 @@ namespace Api.Clinic.Database
                             {
                                 Id = (int)reader["Id"]
                                 , PatientId = (int)reader["PatientId"]
-                                , StartTime = DateTime.Parse(reader["Date"].ToString() ?? "1901-01-01")
+                                , StartTime = DateTime.Parse(reader["StartTime"].ToString() ?? "1901-01-01")
+                                , EndTime = DateTime.Parse(reader["EndTime"].ToString() ?? "1901-01-01")
                             };
 
                             returnVal.Add(newApp);
@@ -81,6 +118,8 @@ namespace Api.Clinic.Database
                     cmd.Parameters.Add(new SqlParameter("@physicianId", 3));
                     cmd.Parameters.Add(new SqlParameter("@patientId", app.PatientId));
                     cmd.Parameters.Add(new SqlParameter("@appointmentId", app.Id));
+                    cmd.Parameters.Add(new SqlParameter("@startTime", app.StartTime));
+                    cmd.Parameters.Add(new SqlParameter("@endTime", app.StartTime));
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -108,6 +147,8 @@ namespace Api.Clinic.Database
                     cmd.Parameters.Add(new SqlParameter("@date", app.StartTime));
                     cmd.Parameters.Add(new SqlParameter("@physicianId", 3));
                     cmd.Parameters.Add(new SqlParameter("@patientId", app.PatientId));
+                    cmd.Parameters.Add(new SqlParameter("@startTime", app.StartTime));
+                    cmd.Parameters.Add(new SqlParameter("@endTime", app.EndTime));
                     var param = new SqlParameter("@appointmentId", app.Id);
                     param.Direction = System.Data.ParameterDirection.Output;
                     cmd.Parameters.Add(param);
